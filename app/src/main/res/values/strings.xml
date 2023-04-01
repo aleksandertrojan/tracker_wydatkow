@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Peculium</string>
+
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Languages">
+        <item>dom i rachunki</item>
+        <item>wydatki podstawowe</item>
+        <item>zdrowie</item>
+        <item>kosmetyki</item>
+        <item>transport</item>
+        <item>edukacja</item>
+        <item>odzież i obuwie</item>
+        <item>jedzenie</item>
+        <item>elektronika</item>
+        <item>zwierzęta domowe</item>
+        <item>gotówka</item>
+        <item>inne wydatki</item>
+    </string-array>
+
+
 </resources>
