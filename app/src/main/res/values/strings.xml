@@ -4,6 +4,7 @@
     <string name="selected_item">Selected item:</string>
 
     <string-array name="Languages">
+        <item>-</item>
         <item>dom i rachunki</item>
         <item>wydatki podstawowe</item>
         <item>zdrowie</item>
