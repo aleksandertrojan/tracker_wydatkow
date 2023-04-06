@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="podsumowanie"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/home_dodaj"
         android:layout_width="147dp"
         android:layout_height="54dp"
         android:text="Dodaj"
@@ -19,7 +20,7 @@
         app:layout_constraintVertical_bias="0.443" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/home_ukwota"
         android:layout_width="204dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -33,7 +34,7 @@
         tools:text="Wpisz kwotę" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/home_kwota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kwota:"
@@ -46,7 +47,7 @@
         app:layout_constraintVertical_bias="0.035" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/home_kat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
@@ -58,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextDate2"
+        android:id="@+id/home_udata"
         android:layout_width="199dp"
         android:layout_height="41dp"
         android:ems="10"
@@ -71,7 +72,7 @@
         app:layout_constraintVertical_bias="0.347" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/home_ukat"
         android:layout_width="202dp"
         android:layout_height="41dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +83,7 @@
         app:layout_constraintVertical_bias="0.22" />
 
     <TextView
-        android:id="@+id/txtView"
+        android:id="@+id/home_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data:"
@@ -94,41 +95,98 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.294" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="306dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="190dp"
-        android:layout_marginBottom="317dp"
-        android:rotationX="0"
-        android:rotationY="0"
-        android:text="   Podsumowanie"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+    <EditText
+        android:id="@+id/home_pensja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginBottom="287dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/home_dodaj"
+        tools:text="jaka jest twoja pensja" />
+
+    <TextView
+        android:id="@+id/home_wyd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="325dp"
+        android:layout_marginBottom="247dp"
+        android:text="za 30 dni wydano:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_pensja"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/BottomNavigationView"
-        android:layout_width="410dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="233dp"
+    <TextView
+        android:id="@+id/home_uwyd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="247dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home_wyd"
+        app:layout_constraintTop_toBottomOf="@+id/home_udata" />
+
+    <TextView
+        android:id="@+id/home_reszta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="326dp"
+        android:layout_marginBottom="200dp"
+        android:text="pozostało w portfelu:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_wyd"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/home_ureszta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="199dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home_reszta"
+        app:layout_constraintTop_toBottomOf="@+id/home_uwyd" />
+
+    <ImageButton
+        android:id="@+id/home_to_pod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="319dp"
+        android:layout_marginBottom="35dp"
+        android:onClick="podsumowanie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" >
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_input_add" />
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:layout_constraintTop_toBottomOf="@+id/home_reszta"
+        app:srcCompat="@android:drawable/ic_lock_power_off" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
