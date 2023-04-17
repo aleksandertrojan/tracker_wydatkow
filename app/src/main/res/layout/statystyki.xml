@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/podsumowanie">
+
+<TextView
+    android:id="@+id/pod_8"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="295dp"
+    android:layout_marginBottom="7dp"
+    android:text="Elektronika"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb8"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb8"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb7" />
+
+<TextView
+    android:id="@+id/pod_10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="287dp"
+    android:layout_marginBottom="7dp"
+    android:text="Inne wydatki"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb10"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb9"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb9" />
+
+<ProgressBar
+    android:id="@+id/pod_prb10"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="158dp"
+    android:layout_height="14dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="154dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt10"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_10" />
+
+<TextView
+    android:id="@+id/pod_txt10"
+    android:layout_width="158dp"
+    android:layout_height="18dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="154dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb10"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt9" />
+
+<TextView
+    android:id="@+id/pod_9"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="245dp"
+    android:layout_marginBottom="7dp"
+    android:text="Zwierzęta domowe"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb9"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb8"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb8" />
+
+<ProgressBar
+    android:id="@+id/pod_prb9"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_10"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt9"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_9" />
+
+<TextView
+    android:id="@+id/pod_txt8"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt9"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb8"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt7" />
+
+<ProgressBar
+    android:id="@+id/pod_prb8"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_9"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt8"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_8" />
+
+<TextView
+    android:id="@+id/pod_txt9"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt10"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb9"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt8" />
+
+<TextView
+    android:id="@+id/pod_4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="304dp"
+    android:layout_marginBottom="7dp"
+    android:text="Transport"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb4"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb4"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb3" />
+
+<TextView
+    android:id="@+id/pod_6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="267dp"
+    android:layout_marginBottom="7dp"
+    android:text="Odzież i obuwie"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb6"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb5"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb5" />
+
+<TextView
+    android:id="@+id/pod_txt7"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="30dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt8"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb7"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt6" />
+
+<ProgressBar
+    android:id="@+id/pod_prb6"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_7"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt6"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_6" />
+
+<TextView
+    android:id="@+id/pod_txt6"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt7"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb6"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt5" />
+
+<ProgressBar
+    android:id="@+id/pod_prb7"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_8"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt7"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_7" />
+
+<TextView
+    android:id="@+id/pod_5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="308dp"
+    android:layout_marginBottom="7dp"
+    android:text="Edukacja"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb5"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb4"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb4" />
+
+<ProgressBar
+    android:id="@+id/pod_prb5"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_6"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_5" />
+
+<TextView
+    android:id="@+id/pod_txt4"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt5"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb4"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt3" />
+
+<ProgressBar
+    android:id="@+id/pod_prb4"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_5"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt4"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_4" />
+
+<TextView
+    android:id="@+id/pod_txt5"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt6"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb5"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt4" />
+
+<TextView
+    android:id="@+id/pod_7"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="309dp"
+    android:layout_marginBottom="7dp"
+    android:text="Jedzenie"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb7"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb6"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb6" />
+
+<TextView
+    android:id="@+id/pod_2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="314dp"
+    android:layout_marginBottom="7dp"
+    android:text="Zdrowie"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb2"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb1"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb1" />
+
+<ProgressBar
+    android:id="@+id/pod_prb3"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_4"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt3"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_3" />
+
+<TextView
+    android:id="@+id/pod_txt2"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt3"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb2"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt1" />
+
+<ProgressBar
+    android:id="@+id/pod_prb2"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_3"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt2"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_2" />
+
+<TextView
+    android:id="@+id/pod_txt3"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="30dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt4"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb3"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt2" />
+
+<TextView
+    android:id="@+id/pod_3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="299dp"
+    android:layout_marginBottom="7dp"
+    android:text="Kosmetyki"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb3"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb2"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb2" />
+
+<TextView
+    android:id="@+id/pod_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="231dp"
+    android:layout_marginBottom="7dp"
+    android:text="Wydatki podstawowe"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb0"
+    app:layout_constraintTop_toBottomOf="@+id/pod_prb0" />
+
+<TextView
+    android:id="@+id/pod_txt1"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt2"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb1"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt0" />
+
+<ProgressBar
+    android:id="@+id/pod_prb1"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_2"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_1" />
+
+<TextView
+    android:id="@+id/pod_txt0"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="87dp"
+    android:layout_marginEnd="38dp"
+    android:layout_marginBottom="29dp"
+    android:text="0,00"
+    app:layout_constraintBottom_toTopOf="@+id/pod_txt1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/pod_prb0"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/pod_00"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="153dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="162dp"
+    android:layout_marginBottom="4dp"
+    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+    app:layout_constraintBottom_toTopOf="@+id/pod_0"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.507"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.516" />
+
+<TextView
+    android:id="@+id/pod_0"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="272dp"
+    android:layout_marginBottom="7dp"
+    android:text="Dom i rachunki"
+    app:layout_constraintBottom_toTopOf="@+id/pod_prb0"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/pod_prb0"
+    app:layout_constraintTop_toBottomOf="@+id/pod_00" />
+
+<ProgressBar
+    android:id="@+id/pod_prb0"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="46dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginBottom="7dp"
+    app:layout_constraintBottom_toTopOf="@+id/pod_1"
+    app:layout_constraintEnd_toStartOf="@+id/pod_txt0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_0" />
+
+<Spinner
+    android:id="@+id/pod_month"
+    android:layout_width="281dp"
+    android:layout_height="33dp"
+    android:layout_marginStart="65dp"
+    android:layout_marginTop="32dp"
+    android:layout_marginEnd="65dp"
+    android:layout_marginBottom="14dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pod_txt10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

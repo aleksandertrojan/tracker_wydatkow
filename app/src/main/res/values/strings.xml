@@ -19,5 +19,8 @@
         <item>inne wydatki</item>
     </string-array>
 
-
+    <string name="ekran_1">Start</string>
+    <string name="ekran_2">Statystyki</string>
+    <string name="ekran_3">Podsumowanie</string>
+    <string name="dodaj">Dodaj</string>
 </resources>

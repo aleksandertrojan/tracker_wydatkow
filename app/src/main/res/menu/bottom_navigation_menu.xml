@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_ekran_1"
+        android:title="@string/ekran_1"
+        android:icon="@drawable/baseline_playlist_add_24" />
+    <item
+        android:id="@+id/menu_item_ekran_2"
+        android:title="@string/ekran_2"
+        android:icon="@drawable/baseline_bar_chart_24" />
+    <item
+        android:id="@+id/menu_item_ekran_3"
+        android:title="@string/ekran_3"
+        android:icon="@drawable/baseline_format_list_numbered_rtl_24" />
+</menu>
