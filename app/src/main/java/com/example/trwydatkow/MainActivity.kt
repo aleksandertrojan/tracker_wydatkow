@@ -1,14 +1,13 @@
 package com.example.trwydatkow
 
-
+import android.view.MenuItem
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.math.BigDecimal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.app.DatePickerDialog
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.widget.*
@@ -42,23 +41,6 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         sqliteHelper = SQLiteHelper(this)
         btnDodaj.setOnClickListener { dodajW() }
-
-        /*val dateField = findViewById<EditText>(R.id.edData)
-
-        dateField.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, monthOfYear)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                dateField.setText(SimpleDateFormat("dd/MM/yyyy").format(calendar.time))
-            }
-            DatePickerDialog(this, dateSetListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show()
-        }*/
-
     }
 
 
@@ -148,8 +130,6 @@ class MainActivity : AppCompatActivity() {
                 btnDodaj.setOnClickListener { dodajW() }
                 supportActionBar?.title = getString(R.string.ekran_1)
 
-                /////////////////////////////////////////////////////////
-
                 val kategoria = resources.getStringArray(R.array.kategoria)
                 val spinner = findViewById<Spinner>(R.id.spKategoria)
                 if (spinner != null) {
@@ -170,6 +150,22 @@ class MainActivity : AppCompatActivity() {
                             // write code to perform some action
                         }
                     }
+                }
+
+                val dateField = findViewById<EditText>(R.id.edData)
+
+                dateField.setOnClickListener {
+                    val calendar = Calendar.getInstance()
+                    val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                        calendar.set(Calendar.YEAR, year)
+                        calendar.set(Calendar.MONTH, monthOfYear)
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        dateField.setText(SimpleDateFormat("dd/MM/yyyy").format(calendar.time))
+                    }
+                    DatePickerDialog(this, dateSetListener,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show()
                 }
 
 
