@@ -1,16 +1,18 @@
 package com.example.trackerv2
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
+import android.view.View
+import android.widget.*
+import com.example.trackerv2.R
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var dataBase: SqliteDatabase
@@ -49,23 +51,31 @@ class MainActivity : AppCompatActivity() {
         val inflater = LayoutInflater.from(this)
         val subView = inflater.inflate(R.layout.okienko, null)
         val poleKwota: EditText = subView.findViewById(R.id.podajkwote)
-        val poleKategoria: EditText = subView.findViewById(R.id.podajkategorie)
+        val poleKategoria: Spinner = subView.findViewById(R.id.podajkategorie)
+        val options = listOf("Wybierz kategorie", "dom i rachunki", "wydatki podstawowe",
+                "zdrowie", "kosmetyki","transport","edukacja","odzież i obuwie","jedzenie",
+                "elektronika","zwierzęta domowe","inne wydatki")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        poleKategoria.adapter = adapter
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Dodaj nowy wydatek")
         builder.setView(subView)
         builder.create()
         builder.setPositiveButton("Dodaj wydatek") { _, _ ->
             val kwota = poleKwota.text.toString()
-            val kategoria = poleKategoria.text.toString()
-            if (TextUtils.isEmpty(kwota)) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Coś poszło nie tak, sprawdź poprawność wprowadzonych danych.",
-                    Toast.LENGTH_LONG
-                ).show()
+            var kategoria: String? = null
+            if (poleKategoria.selectedItemPosition != 0) {
+                kategoria = poleKategoria.selectedItem.toString()
             }
-            else {
-                val nowy = Wydatek(kwota.toDouble(), kategoria)
+            if (TextUtils.isEmpty(kwota) || TextUtils.isEmpty(kategoria)) {
+                Toast.makeText(
+                        this@MainActivity,
+                        "Coś poszło nie tak, sprawdź poprawność wprowadzonych danych.",
+                        Toast.LENGTH_LONG
+                ).show()
+            } else {
+                val nowy = Wydatek(kwota.toDouble(), kategoria!!)
                 dataBase.add(nowy)
                 finish()
                 startActivity(intent)

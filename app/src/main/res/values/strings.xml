@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TrackerV2</string>
+
+    <string-array name="kategoria">
+        <item>-</item>
+        <item>dom i rachunki</item>
+        <item>wydatki podstawowe</item>
+        <item>zdrowie</item>
+        <item>kosmetyki</item>
+        <item>transport</item>
+        <item>edukacja</item>
+        <item>odzież i obuwie</item>
+        <item>jedzenie</item>
+        <item>elektronika</item>
+        <item>zwierzęta domowe</item>
+        <!--item>gotówka</item-->
+        <item>inne wydatki</item>
+    </string-array>
 </resources>

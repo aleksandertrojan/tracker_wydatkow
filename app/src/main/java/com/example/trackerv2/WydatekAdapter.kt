@@ -5,10 +5,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -77,42 +74,52 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
         val inflater = LayoutInflater.from(context)
         val subView = inflater.inflate(R.layout.okienko, null)
         val poleKwota: EditText = subView.findViewById(R.id.podajkwote)
-        val poleKategoria: EditText = subView.findViewById(R.id.podajkategorie)
+        val spinnerKategoria: Spinner = subView.findViewById(R.id.podajkategorie)
         poleKwota.setText(wydatki.kwota.toString())
-        poleKategoria.setText(wydatki.kategoria)
+
+        // Ustawienie adaptera dla spinnera z kategoriami
+        val adapter = ArrayAdapter.createFromResource(context, R.array.kategoria, android.R.layout.simple_spinner_dropdown_item)
+        spinnerKategoria.adapter = adapter
+
+        // Ustawienie domyślnej wartości spinnera na wybraną kategorię
+        val kategoriaIndex = adapter.getPosition(wydatki.kategoria)
+        spinnerKategoria.setSelection(kategoriaIndex)
+
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Edytuj wydatek")
         builder.setView(subView)
         builder.create()
         builder.setPositiveButton(
-            "EDYTUJ WYDATEK"
+                "EDYTUJ WYDATEK"
         ) { _, _ ->
             val kwotaStr = poleKwota.text.toString()
-            val kategoria = poleKategoria.text.toString()
+            val kategoria = spinnerKategoria.selectedItem.toString()
             if (TextUtils.isEmpty(kwotaStr)) {
                 Toast.makeText(
-                    context,
-                    "Coś poszło nie tak, sprawdź poprawność wprowadzonych danych.",
-                    Toast.LENGTH_LONG
+                        context,
+                        "Coś poszło nie tak, sprawdź poprawność wprowadzonych danych.",
+                        Toast.LENGTH_LONG
                 ).show()
             }
             else {
                 mDatabase.update(
-                    Wydatek(
-                        Objects.requireNonNull<Any>(wydatki.id) as Int,
-                        kwotaStr.toDouble(),
-                        kategoria
-                    )
+                        Wydatek(
+                                Objects.requireNonNull<Any>(wydatki.id) as Int,
+                                kwotaStr.toDouble(),
+                                kategoria!!
+                        )
                 )
                 (context as Activity).finish()
                 context.startActivity(context.intent)
             }
         }
         builder.setNegativeButton(
-            "ANULUJ"
+                "ANULUJ"
         ) { _, _ -> Toast.makeText(context, "Anulowano dodawanie wydatku.", Toast.LENGTH_LONG).show() }
         builder.show()
     }
+
+
 
     fun updateData(newList: List<Wydatek>) {
         listaW.clear()
