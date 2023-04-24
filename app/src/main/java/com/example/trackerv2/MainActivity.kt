@@ -1,6 +1,8 @@
 package com.example.trackerv2
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -9,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.view.View
 import android.widget.*
 import com.example.trackerv2.R
+import com.google.android.material.datepicker.MaterialDatePicker
+
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         val inflater = LayoutInflater.from(this)
         val subView = inflater.inflate(R.layout.okienko, null)
         val poleKwota: EditText = subView.findViewById(R.id.podajkwote)
+
+        /// Obszar spinner
         val poleKategoria: Spinner = subView.findViewById(R.id.podajkategorie)
         val options = listOf("Wybierz kategorie", "dom i rachunki", "wydatki podstawowe",
                 "zdrowie", "kosmetyki","transport","edukacja","odzież i obuwie","jedzenie",
@@ -58,6 +66,25 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         poleKategoria.adapter = adapter
+        /// Obszar data
+
+        val poleData = subView.findViewById<EditText>(R.id.podajData)
+        poleData.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                poleData.setText(SimpleDateFormat("dd/MM/yyyy").format(calendar.time))
+            }
+            DatePickerDialog(this, dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        ///
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Dodaj nowy wydatek")
         builder.setView(subView)
@@ -76,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             } else {
                 val nowy = Wydatek(kwota.toDouble(), kategoria!!)
+                //val nowy = Wydatek(kwota.toDouble(), kategoria!!,data)
                 dataBase.add(nowy)
                 finish()
                 startActivity(intent)

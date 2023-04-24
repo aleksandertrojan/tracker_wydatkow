@@ -2,7 +2,7 @@
     <string name="app_name">TrackerV2</string>
 
     <string-array name="kategoria">
-        <item>-</item>
+        <item>Wybierz kategorie</item>
         <item>dom i rachunki</item>
         <item>wydatki podstawowe</item>
         <item>zdrowie</item>
