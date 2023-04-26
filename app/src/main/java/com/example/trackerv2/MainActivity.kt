@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         widokWydatkow.layoutManager = linearLayoutManager
         widokWydatkow.setHasFixedSize(true)
         dataBase = SqliteDatabase(this)
-        val wszystkieWydatki = dataBase.listaWydatków()
+        val wszystkieWydatki = dataBase.listaWydatkow()
         val mAdapter = WydatekAdapter(this, wszystkieWydatki)
         widokWydatkow.adapter = mAdapter
         if (wszystkieWydatki.isEmpty()) {
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val poleData = subView.findViewById<EditText>(R.id.podajData)
         poleData.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -92,18 +92,18 @@ class MainActivity : AppCompatActivity() {
         builder.setPositiveButton("Dodaj wydatek") { _, _ ->
             val kwota = poleKwota.text.toString()
             var kategoria: String? = null
+            val data = poleData.text.toString()
             if (poleKategoria.selectedItemPosition != 0) {
                 kategoria = poleKategoria.selectedItem.toString()
             }
-            if (TextUtils.isEmpty(kwota) || TextUtils.isEmpty(kategoria)) {
+            if (TextUtils.isEmpty(kwota) || TextUtils.isEmpty(kategoria) || TextUtils.isEmpty(data) ) {
                 Toast.makeText(
                         this@MainActivity,
                         "Coś poszło nie tak, sprawdź poprawność wprowadzonych danych.",
                         Toast.LENGTH_LONG
                 ).show()
             } else {
-                val nowy = Wydatek(kwota.toDouble(), kategoria!!)
-                //val nowy = Wydatek(kwota.toDouble(), kategoria!!,data)
+                val nowy = Wydatek(kwota.toDouble(), kategoria!!, data)
                 dataBase.add(nowy)
                 finish()
                 startActivity(intent)

@@ -19,7 +19,8 @@ class SqliteDatabase internal constructor(context: Context?) :
                 + TABELA + "(" + COLUMN_ID
                 + " INTEGER PRIMARY KEY,"
                 + COLUMN_KWOTA + " REAL,"
-                + COLUMN_KATEGORIA + " TEXT" + ")")
+                + COLUMN_KATEGORIA + " TEXT,"
+                + COLUMN_DATA + " TEXT" + ")")
         db.execSQL(utworzTabele)
     }
 
@@ -32,7 +33,7 @@ class SqliteDatabase internal constructor(context: Context?) :
         onCreate(db)
     }
 
-    fun listaWydatków(): ArrayList<Wydatek> {
+    fun listaWydatkow(): ArrayList<Wydatek> {
         val sql = "select * from $TABELA"
         val db = this.readableDatabase
         val Lwydatkow = ArrayList<Wydatek>()
@@ -42,7 +43,8 @@ class SqliteDatabase internal constructor(context: Context?) :
                 val id = cursor.getString(0).toInt()
                 val kwota = cursor.getDouble(1)
                 val kategoria = cursor.getString(2)
-                Lwydatkow.add(Wydatek(id, kwota, kategoria))
+                val data = cursor.getString(3)
+                Lwydatkow.add(Wydatek(id, kwota, kategoria, data))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -53,6 +55,7 @@ class SqliteDatabase internal constructor(context: Context?) :
         val values = ContentValues()
         values.put(COLUMN_KWOTA, wydatki.kwota)
         values.put(COLUMN_KATEGORIA, wydatki.kategoria)
+        values.put(COLUMN_DATA, wydatki.data)
         val db = this.writableDatabase
         db.insert(TABELA, null, values)
     }
@@ -61,6 +64,7 @@ class SqliteDatabase internal constructor(context: Context?) :
         val values = ContentValues()
         values.put(COLUMN_KWOTA, wydatki.kwota)
         values.put(COLUMN_KATEGORIA, wydatki.kategoria)
+        values.put(COLUMN_DATA, wydatki.data)
         val db = this.writableDatabase
         db.update(
             TABELA,
@@ -80,11 +84,12 @@ class SqliteDatabase internal constructor(context: Context?) :
     }
 
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "DB"
         private const val TABELA = "Wydatki"
         private const val COLUMN_ID = "_id"
         private const val COLUMN_KWOTA = "kwota"
         private const val COLUMN_KATEGORIA = "kategoria"
+        private const val COLUMN_DATA = "data"
     }
 }

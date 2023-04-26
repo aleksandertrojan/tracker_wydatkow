@@ -31,6 +31,7 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
         val wydatki = listaW[position]
         holder.holKwota.text = wydatki.kwota.toString()
         holder.holKategoria.text = wydatki.kategoria
+        holder.holData.text = wydatki.data
         holder.edytuj.setOnClickListener { editTaskDialog(wydatki) }
         holder.usun.setOnClickListener {
             mDatabase.delete(wydatki.id)
@@ -91,7 +92,7 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
         val poleData = subView.findViewById<EditText>(R.id.podajData)
         poleData.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -116,6 +117,7 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
         ) { _, _ ->
             val kwotaStr = poleKwota.text.toString()
             val kategoria = spinnerKategoria.selectedItem.toString()
+            val data = poleData.text.toString()
             if (TextUtils.isEmpty(kwotaStr)) {
                 Toast.makeText(
                         context,
@@ -128,7 +130,8 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
                         Wydatek(
                                 Objects.requireNonNull<Any>(wydatki.id) as Int,
                                 kwotaStr.toDouble(),
-                                kategoria!!
+                                kategoria!!,
+                                data
                         )
                 )
                 (context as Activity).finish()

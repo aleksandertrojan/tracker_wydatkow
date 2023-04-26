@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrackerV2</string>
+    <string name="app_name">Peculium</string>
 
     <string-array name="kategoria">
         <item>Wybierz kategorie</item>
