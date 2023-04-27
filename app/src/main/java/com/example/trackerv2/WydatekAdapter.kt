@@ -90,6 +90,7 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
 
         ///Obszar data
         val poleData = subView.findViewById<EditText>(R.id.podajData)
+        poleData.setText(wydatki.data)
         poleData.setOnClickListener {
             val calendar = Calendar.getInstance()
             val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -118,7 +119,7 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
             val kwotaStr = poleKwota.text.toString()
             val kategoria = spinnerKategoria.selectedItem.toString()
             val data = poleData.text.toString()
-            if (TextUtils.isEmpty(kwotaStr)) {
+            if (TextUtils.isEmpty(kwotaStr) || TextUtils.isEmpty(kategoria) || TextUtils.isEmpty(data)) {
                 Toast.makeText(
                         context,
                         "Coś poszło nie tak, sprawdź poprawność wprowadzonych danych.",
