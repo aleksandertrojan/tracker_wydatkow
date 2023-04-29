@@ -53,7 +53,7 @@ class StatystykiActivity : AppCompatActivity() {
 
         //val miesiac będzie mozna zamienic na wMonth jak będzie w poprawnym formacie
         //na razie trzeba ręcznie wpisywać datę
-        val miesiac = "03-2023"
+        val miesiac = mies(wMonth!!)
         val sumaMiesiac = "SELECT SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = \"$miesiac\""
 
         val cursorP = db.readableDatabase.rawQuery(pierwsza, null)
@@ -108,6 +108,17 @@ class StatystykiActivity : AppCompatActivity() {
         poleMonth.adapter = adapter
 
         poleMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+
+                wMonth = parent.getItemAtPosition(position).toString()
+                textView.text = mies(wMonth!!)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+        /*poleMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View?,
@@ -145,8 +156,7 @@ class StatystykiActivity : AppCompatActivity() {
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
-        }
-        // mies(wMonth!!) // dla zapytania do bazy
+        }*/
     }
 
     fun mies(s: String): String {
@@ -154,8 +164,8 @@ class StatystykiActivity : AppCompatActivity() {
             "styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
             "lipiec", "sierpień", "wrzesień","październik", "listopad", "grudzień"
         )
-        val rok = s.take(4)
-        val m = s.substring(5, 7)
+        val rok = s.takeLast(4)
+        val m = s.dropLast(5)
         var mies = -1
         var wynik = ""
         for ((index, value) in lista.withIndex()) {
