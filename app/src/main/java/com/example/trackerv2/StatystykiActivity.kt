@@ -26,7 +26,6 @@ class StatystykiActivity : AppCompatActivity() {
     }
 }*/
 package com.example.trackerv2
-
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -47,33 +46,116 @@ class StatystykiActivity : AppCompatActivity() {
         val textView: TextView = findViewById(R.id.pod_txt0)
         //textView.text = "Wpisz tutaj"
 
-        var pBazy: String? = null //dla daty 1 zapisu
-        var kBazy: String? = null //dla daty ostatniego zapisu
+        val db = SqliteDatabase(this)
+        val pierwsza = "SELECT * FROM ${SqliteDatabase.TABELA} ORDER BY ${SqliteDatabase.COLUMN_DATA} ASC LIMIT 1"
+        val ostatnia = "SELECT * FROM ${SqliteDatabase.TABELA} ORDER BY ${SqliteDatabase.COLUMN_DATA} DESC LIMIT 1"
+        val suma = "SELECT SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA}"
+
+        //val miesiac będzie mozna zamienic na wMonth jak będzie w poprawnym formacie
+        //na razie trzeba ręcznie wpisywać datę
+        val miesiac = "03-2023"
+        val sumaMiesiac = "SELECT SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = \"$miesiac\""
+
+        val cursorP = db.readableDatabase.rawQuery(pierwsza, null)
+        val cursorO = db.readableDatabase.rawQuery(ostatnia, null)
+        val cursorS = db.readableDatabase.rawQuery(suma, null)
+        val cursorSMsc = db.readableDatabase.rawQuery(sumaMiesiac, null)
+        var pBazy: String? = null
+        var kBazy: String? = null
+        var sKwot: Double? = null
+        var sMsc: Double? = null
+
+        if (cursorP.moveToFirst()) {
+            pBazy = cursorP.getString(cursorP.getColumnIndexOrThrow(SqliteDatabase.COLUMN_DATA))
+        }
+
+        if (cursorO.moveToFirst()) {
+            kBazy = cursorO.getString(cursorO.getColumnIndexOrThrow(SqliteDatabase.COLUMN_DATA))
+        }
+
+        if (cursorS.moveToFirst()) {
+            sKwot = cursorS.getDouble(0)
+        }
+
+        if (cursorSMsc.moveToFirst()) {
+            sMsc = cursorSMsc.getDouble(0)
+        }
+
+        cursorP.close()
+        cursorO.close()
+        cursorS.close()
+        cursorSMsc.close()
+        db.close()
+
+        //ten fragment jest tylko do wyświetlenia sum
+        //żeby się upewnić, że działa
+        //możesz to później usunąć w statystyki.xml
+        val sumaTextView = findViewById<TextView>(R.id.SumaTextView)
+        if (sKwot != null) {
+            sumaTextView.text = "Suma kwot: $sKwot"
+        }
+
+        val razemTextView = findViewById<TextView>(R.id.RazemTextView)
+        if (sMsc != null) {
+            razemTextView.text = "Razem za miesiąc: $sMsc"
+        }
+        //###################################################################
+
         val poleMonth: Spinner = findViewById(R.id.pod_month)
-        var options = spinner("27/03/2023"/*pBazy*/,"10/07/2023"/*kBazy*/)
+        val options = spinner(pBazy!!, kBazy!!)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         poleMonth.adapter = adapter
 
         poleMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 wMonth = parent.getItemAtPosition(position).toString()
                 textView.text = mies(wMonth!!)
+                if(wMonth != null) {
+                    //linijka niżej nie działa, bo wMonth ma zły format daty, baza potrzebuje MM-yyyy
+                    //val expensesByCategory = sumawgkategorii(wMonth!!)
+                    val expensesByCategory = sumawgkategorii(miesiac)
+                    val categories = listOf("dom i rachunki", "wydatki podstawowe", "zdrowie", "kosmetyki", "transport", "edukacja", "odzież i obuwie", "jedzenie", "elektronika", "zwierzęta domowe", "inne wydatki")
+
+                    for ((index, category) in categories.withIndex()) {
+                        val textView = when (index) {
+                            0 -> findViewById<TextView>(R.id.pod_txt0)
+                            1 -> findViewById<TextView>(R.id.pod_txt1)
+                            2 -> findViewById<TextView>(R.id.pod_txt2)
+                            3 -> findViewById<TextView>(R.id.pod_txt3)
+                            4 -> findViewById<TextView>(R.id.pod_txt4)
+                            5 -> findViewById<TextView>(R.id.pod_txt5)
+                            6 -> findViewById<TextView>(R.id.pod_txt6)
+                            7 -> findViewById<TextView>(R.id.pod_txt7)
+                            8 -> findViewById<TextView>(R.id.pod_txt8)
+                            9 -> findViewById<TextView>(R.id.pod_txt9)
+                            10 -> findViewById<TextView>(R.id.pod_txt10)
+                            else -> null
+                        }
+                        textView?.let {
+                            it.text = expensesByCategory[category]?.toString() ?: "0.0"
+                        }
+                    }
+                }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {
-
             }
         }
-
         // mies(wMonth!!) // dla zapytania do bazy
-
     }
+
     fun mies(s: String): String {
-        val lista = listOf("styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień")
-        val rok = s.takeLast(4)
-        val m = s.dropLast(5)
+        val lista = listOf(
+            "styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
+            "lipiec", "sierpień", "wrzesień","październik", "listopad", "grudzień"
+        )
+        val rok = s.take(4)
+        val m = s.substring(5, 7)
         var mies = -1
         var wynik = ""
         for ((index, value) in lista.withIndex()) {
@@ -83,19 +165,21 @@ class StatystykiActivity : AppCompatActivity() {
             }
         }
         if (mies < 10) {
-            wynik = "0$mies/$rok"
+            wynik = "0$mies-$rok"
         } else {
-            wynik = "$mies/$rok"
+            wynik = "$mies-$rok"
         }
         return wynik
     }
 
     fun spinner(s: String, s1: String): List<String> {
-        val mp = s.substring(3, 5).toInt()
-        var rp = s.substring(6, 10).toInt()
-        val mk = s1.substring(3, 5).toInt()
-        val rk = s1.substring(6, 10).toInt()
-        val lista = listOf("styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień")
+        val mp = s.substring(5, 7).toInt()
+        var rp = s.substring(0, 4).toInt()
+        val mk = s1.substring(5, 7).toInt()
+        val rk = s1.substring(0, 4).toInt()
+        val lista = listOf("styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
+            "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"
+        )
         var lis = mutableListOf<String>()
         if (rk - rp == 0) {
             lis = lista.subList(mp - 1, mk).map { it + " " + rk.toString() }.toMutableList()
@@ -121,4 +205,32 @@ class StatystykiActivity : AppCompatActivity() {
             addAll(this@repeat)
         }
     }
+
+    fun sumawgkategorii(month: String): Map<String, Double> {
+        val db = SqliteDatabase(this)
+        val cursor = db.readableDatabase.rawQuery(
+            "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = ? GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}",
+            arrayOf(month)
+        )
+        val wydatki = mutableMapOf<String, Double>()
+        //println("Liczba wyników: ${cursor.count}")
+
+        while (cursor.moveToNext()) {
+            val kategoria = cursor.getString(0)
+            val kwota = cursor.getDouble(1)
+            wydatki[kategoria] = kwota
+
+        }
+        for ((kategoria, kwota) in wydatki) {
+            println("kategoria: $kategoria, kwota: $kwota")
+        }
+        cursor.close()
+        db.close()
+
+        return wydatki
+    }
 }
+
+
+
+

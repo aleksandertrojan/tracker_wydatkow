@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         title = "Peculium"
         val widokWydatkow: RecyclerView = findViewById(R.id.listaWydatkow)
         val linearLayoutManager = LinearLayoutManager(this)
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun addTaskDialog() {
         val inflater = LayoutInflater.from(this)
         val subView = inflater.inflate(R.layout.okienko, null)
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                poleData.setText(SimpleDateFormat("dd/MM/yyyy").format(calendar.time))
+                poleData.setText(SimpleDateFormat("yyyy-MM-dd").format(calendar.time))
             }
             DatePickerDialog(this, dateSetListener,
                 calendar.get(Calendar.YEAR),

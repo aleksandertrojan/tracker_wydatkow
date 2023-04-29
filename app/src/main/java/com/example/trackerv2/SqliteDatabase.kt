@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.util.*
 
-class SqliteDatabase internal constructor(context: Context?) :
+class SqliteDatabase (context: Context?) :
     SQLiteOpenHelper(
         context,
         DATABASE_NAME,
@@ -34,7 +34,7 @@ class SqliteDatabase internal constructor(context: Context?) :
     }
 
     fun listaWydatkow(): ArrayList<Wydatek> {
-        val sql = "select * from $TABELA"
+        val sql = "select * from $TABELA order by $COLUMN_DATA asc"
         val db = this.readableDatabase
         val Lwydatkow = ArrayList<Wydatek>()
         val cursor = db.rawQuery(sql, null)
@@ -86,10 +86,10 @@ class SqliteDatabase internal constructor(context: Context?) :
     companion object {
         private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "DB"
-        private const val TABELA = "Wydatki"
-        private const val COLUMN_ID = "_id"
-        private const val COLUMN_KWOTA = "kwota"
-        private const val COLUMN_KATEGORIA = "kategoria"
-        private const val COLUMN_DATA = "data"
+        internal const val TABELA = "Wydatki"
+        internal const val COLUMN_ID = "_id"
+        internal const val COLUMN_KWOTA = "kwota"
+        internal const val COLUMN_KATEGORIA = "kategoria"
+        internal const val COLUMN_DATA = "data"
     }
 }

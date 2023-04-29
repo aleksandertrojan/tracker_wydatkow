@@ -97,7 +97,7 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                poleData.setText(SimpleDateFormat("dd/MM/yyyy").format(calendar.time))
+                poleData.setText(SimpleDateFormat("yyyy-MM-dd").format(calendar.time))
             }
             val datePickerDialog = DatePickerDialog(
                 context,
