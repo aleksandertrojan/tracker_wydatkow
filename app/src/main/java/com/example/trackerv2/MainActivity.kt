@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
+import android.icu.text.DecimalFormat
 import android.icu.text.SimpleDateFormat
 import android.view.View
 import android.widget.*
