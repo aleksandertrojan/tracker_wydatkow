@@ -43,7 +43,30 @@ class StatystykiActivity : AppCompatActivity() {
         }
 
         //obszar spinner
-        val textView: TextView = findViewById(R.id.pod_txt0)
+        val textKat_0: TextView = findViewById(R.id.pod_txt0)
+        val textKat_1: TextView = findViewById(R.id.pod_txt1)
+        val textKat_2: TextView = findViewById(R.id.pod_txt2)
+        val textKat_3: TextView = findViewById(R.id.pod_txt3)
+        val textKat_4: TextView = findViewById(R.id.pod_txt4)
+        val textKat_5: TextView = findViewById(R.id.pod_txt5)
+        val textKat_6: TextView = findViewById(R.id.pod_txt6)
+        val textKat_7: TextView = findViewById(R.id.pod_txt7)
+        val textKat_8: TextView = findViewById(R.id.pod_txt8)
+        val textKat_9: TextView = findViewById(R.id.pod_txt9)
+        val textKat_10: TextView = findViewById(R.id.pod_txt10)
+
+        val progBar_0 = findViewById<ProgressBar>(R.id.pod_prb0)
+        val progBar_1 = findViewById<ProgressBar>(R.id.pod_prb1)
+        val progBar_2 = findViewById<ProgressBar>(R.id.pod_prb2)
+        val progBar_3 = findViewById<ProgressBar>(R.id.pod_prb3)
+        val progBar_4 = findViewById<ProgressBar>(R.id.pod_prb4)
+        val progBar_5 = findViewById<ProgressBar>(R.id.pod_prb5)
+        val progBar_6 = findViewById<ProgressBar>(R.id.pod_prb6)
+        val progBar_7 = findViewById<ProgressBar>(R.id.pod_prb7)
+        val progBar_8 = findViewById<ProgressBar>(R.id.pod_prb8)
+        val progBar_9 = findViewById<ProgressBar>(R.id.pod_prb9)
+        val progBar_10 = findViewById<ProgressBar>(R.id.pod_prb10)
+
         //textView.text = "Wpisz tutaj"
 
         val db = SqliteDatabase(this)
@@ -51,19 +74,14 @@ class StatystykiActivity : AppCompatActivity() {
         val ostatnia = "SELECT * FROM ${SqliteDatabase.TABELA} ORDER BY ${SqliteDatabase.COLUMN_DATA} DESC LIMIT 1"
         val suma = "SELECT SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA}"
 
-        //val miesiac będzie mozna zamienic na wMonth jak będzie w poprawnym formacie
-        //na razie trzeba ręcznie wpisywać datę
-        val miesiac = mies(wMonth!!)
-        val sumaMiesiac = "SELECT SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = \"$miesiac\""
+
 
         val cursorP = db.readableDatabase.rawQuery(pierwsza, null)
         val cursorO = db.readableDatabase.rawQuery(ostatnia, null)
         val cursorS = db.readableDatabase.rawQuery(suma, null)
-        val cursorSMsc = db.readableDatabase.rawQuery(sumaMiesiac, null)
         var pBazy: String? = null
         var kBazy: String? = null
         var sKwot: Double? = null
-        var sMsc: Double? = null
 
         if (cursorP.moveToFirst()) {
             pBazy = cursorP.getString(cursorP.getColumnIndexOrThrow(SqliteDatabase.COLUMN_DATA))
@@ -77,14 +95,10 @@ class StatystykiActivity : AppCompatActivity() {
             sKwot = cursorS.getDouble(0)
         }
 
-        if (cursorSMsc.moveToFirst()) {
-            sMsc = cursorSMsc.getDouble(0)
-        }
 
         cursorP.close()
         cursorO.close()
         cursorS.close()
-        cursorSMsc.close()
         db.close()
 
         //ten fragment jest tylko do wyświetlenia sum
@@ -95,10 +109,7 @@ class StatystykiActivity : AppCompatActivity() {
             sumaTextView.text = "Suma kwot: $sKwot"
         }
 
-        val razemTextView = findViewById<TextView>(R.id.RazemTextView)
-        if (sMsc != null) {
-            razemTextView.text = "Razem za miesiąc: $sMsc"
-        }
+
         //###################################################################
 
         val poleMonth: Spinner = findViewById(R.id.pod_month)
@@ -111,54 +122,64 @@ class StatystykiActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
 
                 wMonth = parent.getItemAtPosition(position).toString()
-                textView.text = mies(wMonth!!)
+                val miesiac = mies(wMonth!!)//.toString()
+                val sumaMiesiac = "SELECT SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = \"$miesiac\""
+                val cursorSMsc = db.readableDatabase.rawQuery(sumaMiesiac, null)
+                var sMsc: Double? = null
+                if (cursorSMsc.moveToFirst()) {
+                    sMsc = cursorSMsc.getDouble(0)
+                }
+                cursorSMsc.close()
+                val razemTextView = findViewById<TextView>(R.id.RazemTextView)
+                if (sMsc != null) {
+                    razemTextView.text = "Razem za miesiąc: $sMsc"
+                }
+                val kat0 = sumawgkategorii(mies(wMonth!!)).getOrDefault("dom i rachunki",0.00)
+                val kat1 = sumawgkategorii(mies(wMonth!!)).getOrDefault("wydatki podstawowe",0.00)
+                val kat2 = sumawgkategorii(mies(wMonth!!)).getOrDefault("zdrowie",0.00)
+                val kat3 = sumawgkategorii(mies(wMonth!!)).getOrDefault("kosmetyki",0.00)
+                val kat4 = sumawgkategorii(mies(wMonth!!)).getOrDefault("transport",0.00)
+                val kat5 = sumawgkategorii(mies(wMonth!!)).getOrDefault("edukacja",0.00)
+                val kat6 = sumawgkategorii(mies(wMonth!!)).getOrDefault("odzież i obuwie",0.00)
+                val kat7 = sumawgkategorii(mies(wMonth!!)).getOrDefault("jedzenie",0.00)
+                val kat8 = sumawgkategorii(mies(wMonth!!)).getOrDefault("elektronika",0.00)
+                val kat9 = sumawgkategorii(mies(wMonth!!)).getOrDefault("zwierzęta domowe",0.00)
+                val kat10 = sumawgkategorii(mies(wMonth!!)).getOrDefault("inne wydatki",0.00)
+                textKat_0.text =kat0.toString()
+                textKat_1.text =kat1.toString()
+                textKat_2.text =kat2.toString()
+                textKat_3.text =kat3.toString()
+                textKat_4.text =kat4.toString()
+                textKat_5.text =kat5.toString()
+                textKat_6.text =kat6.toString()
+                textKat_7.text =kat7.toString()
+                textKat_8.text =kat8.toString()
+                textKat_9.text =kat9.toString()
+                textKat_10.text =kat10.toString()
+                progBar_0.progress = progB(kat0,sMsc!!)
+                progBar_1.progress = progB(kat1,sMsc!!)
+                progBar_2.progress = progB(kat2,sMsc!!)
+                progBar_3.progress = progB(kat3,sMsc!!)
+                progBar_4.progress = progB(kat4,sMsc!!)
+                progBar_5.progress = progB(kat5,sMsc!!)
+                progBar_6.progress = progB(kat6,sMsc!!)
+                progBar_7.progress = progB(kat7,sMsc!!)
+                progBar_8.progress = progB(kat8,sMsc!!)
+                progBar_9.progress = progB(kat9,sMsc!!)
+                progBar_10.progress = progB(kat10,sMsc!!)
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
 
             }
         }
-        /*poleMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                wMonth = parent.getItemAtPosition(position).toString()
-                textView.text = mies(wMonth!!)
-                if(wMonth != null) {
-                    //linijka niżej nie działa, bo wMonth ma zły format daty, baza potrzebuje MM-yyyy
-                    //val expensesByCategory = sumawgkategorii(wMonth!!)
-                    val expensesByCategory = sumawgkategorii(miesiac)
-                    val categories = listOf("dom i rachunki", "wydatki podstawowe", "zdrowie", "kosmetyki", "transport", "edukacja", "odzież i obuwie", "jedzenie", "elektronika", "zwierzęta domowe", "inne wydatki")
-
-                    for ((index, category) in categories.withIndex()) {
-                        val textView = when (index) {
-                            0 -> findViewById<TextView>(R.id.pod_txt0)
-                            1 -> findViewById<TextView>(R.id.pod_txt1)
-                            2 -> findViewById<TextView>(R.id.pod_txt2)
-                            3 -> findViewById<TextView>(R.id.pod_txt3)
-                            4 -> findViewById<TextView>(R.id.pod_txt4)
-                            5 -> findViewById<TextView>(R.id.pod_txt5)
-                            6 -> findViewById<TextView>(R.id.pod_txt6)
-                            7 -> findViewById<TextView>(R.id.pod_txt7)
-                            8 -> findViewById<TextView>(R.id.pod_txt8)
-                            9 -> findViewById<TextView>(R.id.pod_txt9)
-                            10 -> findViewById<TextView>(R.id.pod_txt10)
-                            else -> null
-                        }
-                        textView?.let {
-                            it.text = expensesByCategory[category]?.toString() ?: "0.0"
-                        }
-                    }
-                }
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {
-            }
-        }*/
     }
-
+    fun progB(k: Double,s: Double): Int{
+        val m =(k/s)*100
+        val iM=m.toInt()
+        return iM
+    }
     fun mies(s: String): String {
         val lista = listOf(
             "styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
