@@ -26,6 +26,7 @@ class StatystykiActivity : AppCompatActivity() {
     }
 }*/
 package com.example.trackerv2
+import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -41,6 +42,9 @@ class StatystykiActivity : AppCompatActivity() {
         btnPowrot.setOnClickListener {
             finish()
         }
+
+
+        val decimalFormat = DecimalFormat("#0.00")
 
         //obszar spinner
         val textKat_0: TextView = findViewById(R.id.pod_txt0)
@@ -106,7 +110,7 @@ class StatystykiActivity : AppCompatActivity() {
         //możesz to później usunąć w statystyki.xml
         val sumaTextView = findViewById<TextView>(R.id.SumaTextView)
         if (sKwot != null) {
-            sumaTextView.text = "Suma kwot: $sKwot"
+            sumaTextView.text = "Suma kwot: ${decimalFormat.format(sKwot)}"
         }
 
 
@@ -132,7 +136,7 @@ class StatystykiActivity : AppCompatActivity() {
                 cursorSMsc.close()
                 val razemTextView = findViewById<TextView>(R.id.RazemTextView)
                 if (sMsc != null) {
-                    razemTextView.text = "Razem za miesiąc: $sMsc"
+                    razemTextView.text = "Razem za miesiąc: ${decimalFormat.format(sMsc)}"
                 }
                 val kat0 = sumawgkategorii(mies(wMonth!!)).getOrDefault("dom i rachunki",0.00)
                 val kat1 = sumawgkategorii(mies(wMonth!!)).getOrDefault("wydatki podstawowe",0.00)
@@ -145,17 +149,17 @@ class StatystykiActivity : AppCompatActivity() {
                 val kat8 = sumawgkategorii(mies(wMonth!!)).getOrDefault("elektronika",0.00)
                 val kat9 = sumawgkategorii(mies(wMonth!!)).getOrDefault("zwierzęta domowe",0.00)
                 val kat10 = sumawgkategorii(mies(wMonth!!)).getOrDefault("inne wydatki",0.00)
-                textKat_0.text =kat0.toString()
-                textKat_1.text =kat1.toString()
-                textKat_2.text =kat2.toString()
-                textKat_3.text =kat3.toString()
-                textKat_4.text =kat4.toString()
-                textKat_5.text =kat5.toString()
-                textKat_6.text =kat6.toString()
-                textKat_7.text =kat7.toString()
-                textKat_8.text =kat8.toString()
-                textKat_9.text =kat9.toString()
-                textKat_10.text =kat10.toString()
+                textKat_0.text ="${decimalFormat.format(kat0)}"
+                textKat_1.text ="${decimalFormat.format(kat1)}"
+                textKat_2.text ="${decimalFormat.format(kat2)}"
+                textKat_3.text ="${decimalFormat.format(kat3)}"
+                textKat_4.text ="${decimalFormat.format(kat4)}"
+                textKat_5.text ="${decimalFormat.format(kat5)}"
+                textKat_6.text ="${decimalFormat.format(kat6)}"
+                textKat_7.text ="${decimalFormat.format(kat7)}"
+                textKat_8.text ="${decimalFormat.format(kat8)}"
+                textKat_9.text ="${decimalFormat.format(kat9)}"
+                textKat_10.text ="${decimalFormat.format(kat10)}"
                 progBar_0.progress = progB(kat0,sMsc!!)
                 progBar_1.progress = progB(kat1,sMsc!!)
                 progBar_2.progress = progB(kat2,sMsc!!)
@@ -227,6 +231,39 @@ class StatystykiActivity : AppCompatActivity() {
                 }
                 lis[i] = lis[i] + " " + rp.toString()
             }
+        }
+        return lis
+    }
+
+    fun spinner1(s: String, s1: String): List<String> {
+        val mp = s.substring(3, 5).toInt()
+        var rp = s.substring(6, 10).toInt()
+        val mk = s1.substring(3, 5).toInt()
+        val rk = s1.substring(6, 10).toInt()
+        val lista = listOf("styczeń", "luty", "marzec", "kwiecień", "maj",
+            "czewiec", "lipiec", "sierpień", "wrzesień", "październik",
+            "listopad", "grudzień")
+        val lis = mutableListOf<String>()
+        val k = rk - rp - 1
+        if (rk - rp == 0) {
+            lis.addAll(lista.subList(mp - 1, mk))
+            for (i in 0 until lis.size) {
+                lis[i] += " $rk"
+            }
+        } else if (k > 0) {
+            lis.addAll(lista.subList(mp - 1, lista.size))
+            for (i in 0 until k) {
+                lis.addAll(lista)
+            }
+            lis.addAll(lista.subList(0, mk))
+        } else {
+            lis.addAll(lista.subList(mp - 1, mk))
+        }
+        for (i in 0 until lis.size) {
+            if (lis[i] == "styczeń" && lis[0] != "styczeń") {
+                rp++
+            }
+            lis[i] += " $rp"
         }
         return lis
     }

@@ -3,6 +3,7 @@ package com.example.trackerv2
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.icu.text.DecimalFormat
 import android.icu.text.SimpleDateFormat
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -29,7 +30,10 @@ internal class WydatekAdapter(private val context: Context, listaW: ArrayList<Wy
     }
     override fun onBindViewHolder(holder: WydatekWidok, position: Int) {
         val wydatki = listaW[position]
-        holder.holKwota.text = wydatki.kwota.toString()
+        val kwotaDoZapisy = wydatki.kwota
+        val decimalFormat = DecimalFormat("#0.00")
+        val kwotaa =decimalFormat.format(kwotaDoZapisy)
+        holder.holKwota.text = kwotaa.toString()
         holder.holKategoria.text = wydatki.kategoria
         holder.holData.text = wydatki.data
         holder.edytuj.setOnClickListener { editTaskDialog(wydatki) }
