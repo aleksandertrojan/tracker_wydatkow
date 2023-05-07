@@ -212,61 +212,28 @@ class StatystykiActivity : AppCompatActivity() {
         var rp = s.substring(0, 4).toInt()
         val mk = s1.substring(5, 7).toInt()
         val rk = s1.substring(0, 4).toInt()
-        val lista = listOf("styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
+        val lista = listOf(
+            "styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
             "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"
         )
         var lis = mutableListOf<String>()
         if (rk - rp == 0) {
-            lis = lista.subList(mp - 1, mk).map { it + " " + rk.toString() }.toMutableList()
+            lis = lista.subList(mp - 1, mk).map { it + " " + rp.toString() }.toMutableList()
         } else {
             val k = rk - rp - 1
             if (k > 0) {
-                lis = (lista.subList(mp - 1, lista.size) + lista.repeat(k) + lista.subList(0, mk)) as MutableList<String>
-            } else {
-                lis = lista.subList(mp - 1, mk).toMutableList()
-            }
-            for (i in 0 until lis.size) {
-                if (lis[i] == "styczeń" && lis[0] != "styczeń") {
-                    rp += 1
+                for (i in 1..k) {
+                    lis.addAll(lista.map { it + " " + (rp + i).toString() })
                 }
-                lis[i] = lis[i] + " " + rp.toString()
             }
+            lis.addAll(lista.subList(mp - 1, lista.size).map { it + " " + rp.toString() })
+            lis.addAll(lista.subList(0, mk).map { it + " " + rk.toString() })
         }
         return lis
     }
 
-    fun spinner1(s: String, s1: String): List<String> {
-        val mp = s.substring(3, 5).toInt()
-        var rp = s.substring(6, 10).toInt()
-        val mk = s1.substring(3, 5).toInt()
-        val rk = s1.substring(6, 10).toInt()
-        val lista = listOf("styczeń", "luty", "marzec", "kwiecień", "maj",
-            "czewiec", "lipiec", "sierpień", "wrzesień", "październik",
-            "listopad", "grudzień")
-        val lis = mutableListOf<String>()
-        val k = rk - rp - 1
-        if (rk - rp == 0) {
-            lis.addAll(lista.subList(mp - 1, mk))
-            for (i in 0 until lis.size) {
-                lis[i] += " $rk"
-            }
-        } else if (k > 0) {
-            lis.addAll(lista.subList(mp - 1, lista.size))
-            for (i in 0 until k) {
-                lis.addAll(lista)
-            }
-            lis.addAll(lista.subList(0, mk))
-        } else {
-            lis.addAll(lista.subList(mp - 1, mk))
-        }
-        for (i in 0 until lis.size) {
-            if (lis[i] == "styczeń" && lis[0] != "styczeń") {
-                rp++
-            }
-            lis[i] += " $rp"
-        }
-        return lis
-    }
+
+
 
     fun <T> List<T>.repeat(k: Int): List<T> = mutableListOf<T>().apply {
         repeat(k) {
