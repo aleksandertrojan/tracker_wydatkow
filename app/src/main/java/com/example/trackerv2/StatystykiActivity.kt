@@ -105,13 +105,7 @@ class StatystykiActivity : AppCompatActivity() {
         cursorS.close()
         db.close()
 
-        //ten fragment jest tylko do wyświetlenia sum
-        //żeby się upewnić, że działa
-        //możesz to później usunąć w statystyki.xml
-        val sumaTextView = findViewById<TextView>(R.id.SumaTextView)
-        if (sKwot != null) {
-            sumaTextView.text = "Suma kwot: ${decimalFormat.format(sKwot)}"
-        }
+
 
 
         //###################################################################
@@ -135,20 +129,32 @@ class StatystykiActivity : AppCompatActivity() {
                 }
                 cursorSMsc.close()
                 val razemTextView = findViewById<TextView>(R.id.RazemTextView)
-                if (sMsc != null) {
-                    razemTextView.text = "Razem za miesiąc: ${decimalFormat.format(sMsc)}"
+                //if (sMsc != null) {
+                //    razemTextView.text = "Razem za miesiąc: ${decimalFormat.format(sMsc)}"
+                //}
+                var i = 0
+                var suma: Double? = null
+                if(wMonth == "kiedykolwiek"){
+                    i = 1
+                    suma=sKwot
+                    razemTextView.text = "Suma kwot: ${decimalFormat.format(suma)}"
+                }else{
+                    i = 0
+                    suma = sMsc
+                    razemTextView.text = "Razem za miesiąc: ${decimalFormat.format(suma)}"
+
                 }
-                val kat0 = sumawgkategorii(mies(wMonth!!)).getOrDefault("dom i rachunki",0.00)
-                val kat1 = sumawgkategorii(mies(wMonth!!)).getOrDefault("wydatki podstawowe",0.00)
-                val kat2 = sumawgkategorii(mies(wMonth!!)).getOrDefault("zdrowie",0.00)
-                val kat3 = sumawgkategorii(mies(wMonth!!)).getOrDefault("kosmetyki",0.00)
-                val kat4 = sumawgkategorii(mies(wMonth!!)).getOrDefault("transport",0.00)
-                val kat5 = sumawgkategorii(mies(wMonth!!)).getOrDefault("edukacja",0.00)
-                val kat6 = sumawgkategorii(mies(wMonth!!)).getOrDefault("odzież i obuwie",0.00)
-                val kat7 = sumawgkategorii(mies(wMonth!!)).getOrDefault("jedzenie",0.00)
-                val kat8 = sumawgkategorii(mies(wMonth!!)).getOrDefault("elektronika",0.00)
-                val kat9 = sumawgkategorii(mies(wMonth!!)).getOrDefault("zwierzęta domowe",0.00)
-                val kat10 = sumawgkategorii(mies(wMonth!!)).getOrDefault("inne wydatki",0.00)
+                val kat0 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("dom i rachunki",0.00)
+                val kat1 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("wydatki podstawowe",0.00)
+                val kat2 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("zdrowie",0.00)
+                val kat3 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("kosmetyki",0.00)
+                val kat4 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("transport",0.00)
+                val kat5 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("edukacja",0.00)
+                val kat6 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("odzież i obuwie",0.00)
+                val kat7 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("jedzenie",0.00)
+                val kat8 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("elektronika",0.00)
+                val kat9 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("zwierzęta domowe",0.00)
+                val kat10 = sumawgkategorii(mies(wMonth!!),i).getOrDefault("inne wydatki",0.00)
                 textKat_0.text ="${decimalFormat.format(kat0)}"
                 textKat_1.text ="${decimalFormat.format(kat1)}"
                 textKat_2.text ="${decimalFormat.format(kat2)}"
@@ -160,17 +166,17 @@ class StatystykiActivity : AppCompatActivity() {
                 textKat_8.text ="${decimalFormat.format(kat8)}"
                 textKat_9.text ="${decimalFormat.format(kat9)}"
                 textKat_10.text ="${decimalFormat.format(kat10)}"
-                progBar_0.progress = progB(kat0,sMsc!!)
-                progBar_1.progress = progB(kat1,sMsc!!)
-                progBar_2.progress = progB(kat2,sMsc!!)
-                progBar_3.progress = progB(kat3,sMsc!!)
-                progBar_4.progress = progB(kat4,sMsc!!)
-                progBar_5.progress = progB(kat5,sMsc!!)
-                progBar_6.progress = progB(kat6,sMsc!!)
-                progBar_7.progress = progB(kat7,sMsc!!)
-                progBar_8.progress = progB(kat8,sMsc!!)
-                progBar_9.progress = progB(kat9,sMsc!!)
-                progBar_10.progress = progB(kat10,sMsc!!)
+                progBar_0.progress = progB(kat0,suma!!)
+                progBar_1.progress = progB(kat1,suma!!)
+                progBar_2.progress = progB(kat2,suma!!)
+                progBar_3.progress = progB(kat3,suma!!)
+                progBar_4.progress = progB(kat4,suma!!)
+                progBar_5.progress = progB(kat5,suma!!)
+                progBar_6.progress = progB(kat6,suma!!)
+                progBar_7.progress = progB(kat7,suma!!)
+                progBar_8.progress = progB(kat8,suma!!)
+                progBar_9.progress = progB(kat9,suma!!)
+                progBar_10.progress = progB(kat10,suma!!)
 
             }
 
@@ -189,6 +195,9 @@ class StatystykiActivity : AppCompatActivity() {
             "styczeń", "luty", "marzec", "kwiecień", "maj", "czewiec",
             "lipiec", "sierpień", "wrzesień","październik", "listopad", "grudzień"
         )
+        if(s=="kiedykolwiek"){
+            return "02-2023"
+        }
         val rok = s.takeLast(4)
         val m = s.dropLast(5)
         var mies = -1
@@ -204,6 +213,7 @@ class StatystykiActivity : AppCompatActivity() {
         } else {
             wynik = "$mies-$rok"
         }
+
         return wynik
     }
 
@@ -217,8 +227,12 @@ class StatystykiActivity : AppCompatActivity() {
             "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"
         )
         var lis = mutableListOf<String>()
+
+        // Dodaj "kiedykolwiek" na początek listy
+        lis.add("kiedykolwiek")
+
         if (rk - rp == 0) {
-            lis = lista.subList(mp - 1, mk).map { it + " " + rp.toString() }.toMutableList()
+            lis.addAll(lista.subList(mp - 1, mk).map { it + " " + rp.toString() })
         } else {
             val k = rk - rp - 1
             if (k > 0) {
@@ -241,11 +255,16 @@ class StatystykiActivity : AppCompatActivity() {
         }
     }
 
-    fun sumawgkategorii(month: String): Map<String, Double> {
+    fun sumawgkategorii(month: String,i:Int): Map<String, Double> {
         val db = SqliteDatabase(this)
+        if(i==0){
         val cursor = db.readableDatabase.rawQuery(
             "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = ? GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}",
             arrayOf(month)
+        )}
+        val cursor = db.readableDatabase.rawQuery(
+            "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}",
+            null
         )
         val wydatki = mutableMapOf<String, Double>()
         //println("Liczba wyników: ${cursor.count}")
@@ -264,6 +283,8 @@ class StatystykiActivity : AppCompatActivity() {
 
         return wydatki
     }
+
+
 }
 
 
