@@ -133,7 +133,7 @@ class StatystykiActivity : AppCompatActivity() {
                 //    razemTextView.text = "Razem za miesiąc: ${decimalFormat.format(sMsc)}"
                 //}
                 var i = 0
-                var suma: Double? = null
+                var suma: Double? = 0.0
                 if(wMonth == "kiedykolwiek"){
                     i = 1
                     suma=sKwot
@@ -255,17 +255,18 @@ class StatystykiActivity : AppCompatActivity() {
         }
     }
 
-    fun sumawgkategorii(month: String,i:Int): Map<String, Double> {
+    /*fun sumawgkategorii1(month: String,i:Int): Map<String, Double> {
         val db = SqliteDatabase(this)
         if(i==0){
-        val cursor = db.readableDatabase.rawQuery(
+        var cursor = db.readableDatabase.rawQuery(
             "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = ? GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}",
             arrayOf(month)
         )}
-        val cursor = db.readableDatabase.rawQuery(
+        else{
+        var cursor = db.readableDatabase.rawQuery(
             "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}",
             null
-        )
+        )}
         val wydatki = mutableMapOf<String, Double>()
         //println("Liczba wyników: ${cursor.count}")
 
@@ -282,7 +283,35 @@ class StatystykiActivity : AppCompatActivity() {
         db.close()
 
         return wydatki
+    }*/
+    fun sumawgkategorii(month: String, i: Int): Map<String, Double> {
+        val db = SqliteDatabase(this)
+        val query: String
+        val selectionArgs: Array<String>?
+
+        if (i == 0) {
+            query = "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} WHERE strftime('%m-%Y', ${SqliteDatabase.COLUMN_DATA}) = ? GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}"
+            selectionArgs = arrayOf(month)
+        } else {
+            query = "SELECT ${SqliteDatabase.COLUMN_KATEGORIA}, SUM(${SqliteDatabase.COLUMN_KWOTA}) FROM ${SqliteDatabase.TABELA} GROUP BY ${SqliteDatabase.COLUMN_KATEGORIA}"
+            selectionArgs = null
+        }
+
+        val cursor = db.readableDatabase.rawQuery(query, selectionArgs)
+        val wydatki = mutableMapOf<String, Double>()
+
+        while (cursor.moveToNext()) {
+            val kategoria = cursor.getString(0)
+            val kwota = cursor.getDouble(1)
+            wydatki[kategoria] = kwota
+        }
+
+        cursor.close()
+        db.close()
+
+        return wydatki
     }
+
 
 
 }
